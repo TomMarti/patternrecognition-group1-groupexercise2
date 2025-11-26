@@ -59,6 +59,16 @@ def rank_train_for_query(
     distances: List[Tuple[str, float]] = []
 
     for train_id, train_feats in train_features.items():
+        # Quick length rejection - for speedup
+        len_q = query_feats.shape[0]
+        len_t = train_feats.shape[0]
+
+        ratio = len_q / max(1, len_t)
+        if ratio < 0.5 or ratio > 2.0:
+            # skip extremely dissimilar lengths (not the same word)
+            distances.append((train_id, float("inf")))
+            continue
+
         d = dtw_distance(query_feats, train_feats, window=window)
         distances.append((train_id, d))
 

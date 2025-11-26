@@ -193,8 +193,8 @@ def binarize_image(img: Image.Image) -> Image.Image:
 
     # numpy array
     arr = np.array(img, dtype=np.uint8)
-    # simple threshold = mean
-    thresh = arr.mean()
+
+    thresh = 0.5 * (arr.mean() + arr.min())
     bw = (arr <= thresh).astype(np.uint8) * 255  # text dark -> 255 (black), background 0 -> invert later?
 
     # Optional: invert so that text is black (0) and background white (255)
@@ -217,6 +217,18 @@ def normalize_height(img: Image.Image, target_height: int = TARGET_HEIGHT) -> Im
     new_w = max(1, int(round(w * scale)))
     resized = img.resize((new_w, target_height), Image.BILINEAR)
     return resized
+
+def add_padding(img: Image.Image, pad: int = 5) -> Image.Image: # adds a white border
+    w, h = img.size
+    new_image = Image.new("L", (w + pad * 2, h + pad * 2), 255)
+    new_image.paste(img, (pad, pad))
+    return new_image
+
+def normalize_contrast(arr: np.ndarray) -> np.ndarray:
+    mn, mx = arr.min(), arr.max()
+    if mx > mn:
+        arr = (arr - mn) * (255.0 / (mx - mn))
+    return arr.astype(np.uint8)
 
 
 # ---------------------------------------------------------------------------
@@ -257,8 +269,9 @@ def build_word_image_index(data_root: Path, split: str) -> Dict[str, np.ndarray]
             word_img = crop_word_from_page(page_img, polygon)
             word_img = binarize_image(word_img)
             word_img = normalize_height(word_img, TARGET_HEIGHT)
+            word_img = add_padding(word_img, pad=3)
 
-            word_arr = np.array(word_img, dtype=np.uint8)
+            word_arr = normalize_contrast(np.array(word_img, dtype=np.uint8))
             word_images[word_id] = word_arr
 
     return word_images

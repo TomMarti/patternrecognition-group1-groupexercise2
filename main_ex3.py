@@ -12,8 +12,8 @@ train_images = build_word_image_index(DATA_ROOT, "train")
 val_images   = build_word_image_index(DATA_ROOT, "validation")
 
 print("Step 2: Extracting features...")
-train_feats = build_feature_index(train_images, window_width=1, step=1)
-val_feats   = build_feature_index(val_images,   window_width=1, step=1)
+train_feats = build_feature_index(train_images, window_width=3, step=1)
+val_feats   = build_feature_index(val_images,   window_width=3, step=1)
 
 print("Step 3: Retrieval (DTW) for all queries...")
 retrieval_results = run_retrieval_for_all_queries(
