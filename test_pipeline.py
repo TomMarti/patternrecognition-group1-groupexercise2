@@ -104,8 +104,8 @@ def main():
     # Step 2: Extract features
     # ------------------------------
     print("[2/4] Extracting features...")
-    train_feats = build_feature_index(train_images, window_width=1, step=1)
-    val_feats = build_feature_index(val_images, window_width=1, step=1)
+    train_feats = build_feature_index(train_images, window_width=3, step=1)
+    val_feats = build_feature_index(val_images, window_width=3, step=1)
 
     # ------------------------------
     # Load metadata: transcriptions & keywords
