@@ -24,5 +24,5 @@ Data root: data
  ✓ 271-02-02 &nbsp; &nbsp;label = O-r-d-e-r-s &nbsp; &nbsp;dist = 11.88  
  ✓ 272-02-03 &nbsp; &nbsp;label = O-r-d-e-r-s &nbsp; &nbsp;dist = 12.02  
  ✓ 276-02-03 &nbsp; &nbsp;label = O-r-d-e-r-s &nbsp; &nbsp;dist = 12.09  
-  &nbsp; &nbsp; 271-18-06 &nbsp; &nbsp;label = w-h-e-r-e &nbsp; &nbsp; &nbsp;dist = 12.41  
+  &nbsp; &nbsp; 271-18-06 &nbsp; &nbsp;&nbsp;label = w-h-e-r-e &nbsp; &nbsp; &nbsp;dist = 12.41  
  ✓ 273-01-02 &nbsp; &nbsp;label = O-r-d-e-r-s &nbsp; &nbsp;dist = 12.72  
